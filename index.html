@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>StanLab.dev</title>
-  <img src="fiole.gif" alt="Travaux en cours" class="gif-travaux">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="description" content="Portail technique et créatif de StanLab.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <style>
+    /* Ton CSS est ici */
     body {
       background-color: #0f0f0f;
       color: #f0f0f0;
@@ -34,11 +35,29 @@
       opacity: 0.85;
       margin-top: 0.5em;
     }
+
+    .gif-travaux {
+      margin-top: 4vh;
+      width: 200px;
+      height: auto;
+      opacity: 0.85;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.85; }
+    }
+
+    .gif-travaux {
+      animation: pulse 2.5s infinite;
+    }
   </style>
 </head>
 <body>
   <img src="stanlab-icon.png" alt="StanLab Logo" class="logo">
   <h1>Bienvenue dans le Bastion StanLab</h1>
   <p>Ce domaine est actif. Le portail arrive bientôt.</p>
+  <img src="fiole.gif" alt="Travaux en cours" class="gif-travaux">
 </body>
 </html>
