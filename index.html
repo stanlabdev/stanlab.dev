@@ -6,7 +6,15 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="description" content="Portail technique et créatif de StanLab.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+  <!-- 🔁 Redirection JS vers www.stanlab.dev -->
+  <script>
+    window.location.replace("https://www.stanlab.dev" + window.location.pathname + window.location.search);
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://www.stanlab.dev">
+  </noscript>
+
   <style>
     body {
       background-color: #000000; /* Fond noir */
@@ -37,12 +45,13 @@
 
     .gif-travaux {
       display: block;
-      margin: 6vh auto 0 auto;
+      margin: 4vh auto 0 auto; /**/
       width: 800px;
       height: auto;
       opacity: 0.85;
       animation: pulse 2.5s infinite;
-      filter: invert(1); /* Inversion des couleurs */
+      filter: invert(1); /* ← réduit l’espace au-dessus */
+
     }
 
     @keyframes pulse {
