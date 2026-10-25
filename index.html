@@ -1,62 +1,234 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" translate="no">
 <head>
-  <meta charset="UTF-8">
-  <title>StanLab.dev</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <meta name="description" content="Portail technique et créatif de StanLab.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stanlab</title>
+<link rel="icon" href="logo_hache.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Fredoka:wght@600;700&family=Inter:wght@400;600;800&family=Space+Grotesk:wght@500;700&family=Audiowide&display=swap" rel="stylesheet">
+<style>
+<style>
+  :root{
+    --bg:#07080d; --bg2:#0e1018; --card:#131622; --line:#23283a; --nav:#07080dcc;
+    --blue:#00aaff; --btn-ink:#001522; --text:#e8ecf5; --muted:#8a93a8;
+    --violet:#9b6bff; --cyan:#22c3e6; --green:#4fd26b; --orange:#ff9a2e;
+    --title:'Press Start 2P',monospace; --head:Inter,system-ui,sans-serif; --bodyf:Inter,system-ui,sans-serif;
+    --logo-size:clamp(34px,7vw,78px); --bubble:#00aaff55; --bubble-fill:#00aaff14;
+    --free-bg:linear-gradient(135deg,#1a1230,#0c1a24);
+  }
 
-  <style>
-    body {
-      background-color: #000000; /* Fond noir */
-      color: #00aaff; /* Bleu techno */
-      font-family: monospace;
-      text-align: center;
-      padding-top: 8vh;
-    }
+  html[data-theme="grimoire"]{--bg:#120d0a;--bg2:#1b140f;--card:#1f1711;--line:#3a2c1f;--nav:#120d0acc;--blue:#e0b05a;--btn-ink:#2a1a05;
+    --text:#f3e6d0;--muted:#b59f82;--title:'Cinzel Decorative',serif;--head:'Cinzel',serif;--logo-size:clamp(40px,8vw,96px);
+    --bubble:#e0b05a88;--bubble-fill:#e0b05a22;--free-bg:linear-gradient(135deg,#2a1c10,#15100b)}
+  html[data-theme="grimoire"] body{background-image:radial-gradient(ellipse at top,#2a1c1066,transparent 60%)}
+  html[data-theme="grimoire"] .btn.main{animation:none;box-shadow:0 6px 24px -6px #e0b05a99}
+  html[data-theme="grimoire"] .bubble{border-radius:2px;width:6px!important;height:6px!important}
+  html[data-theme="dusk"]{--bg:#2a2d44;--bg2:#33364f;--card:#3a3d59;--line:#4d5173;--nav:#2a2d44e0;--blue:#8fb8ff;--btn-ink:#0f1630;
+    --text:#eef0fa;--muted:#b6bbd6;--title:'Fredoka',sans-serif;--head:'Fredoka',sans-serif;--logo-size:clamp(52px,10vw,120px);
+    --bubble:#8fb8ff66;--bubble-fill:#8fb8ff18;--free-bg:linear-gradient(135deg,#4a3f7a,#2f5a73)}
+  html[data-theme="dusk"] body{background-image:radial-gradient(700px 500px at 10% 0%,#6b5bd255,transparent 70%),radial-gradient(700px 500px at 95% 40%,#2fa6c455,transparent 70%)}
+  html[data-theme="dusk"] .btn.main{animation:none;box-shadow:0 8px 24px -8px #8fb8ffaa}
+  html[data-theme="dusk"] .logo{letter-spacing:1px}
+  body{transition:background-color .4s,color .4s}
+  .theme{position:relative}
+  .theme-btn{display:flex;align-items:center;gap:6px;height:38px;padding:0 10px 0 9px;border-radius:20px;border:1px solid var(--line);
+             background:var(--bg2);color:var(--text);cursor:pointer;transition:.2s}
+  .theme-btn:hover,.theme.open .theme-btn{border-color:var(--blue)}
+  .theme-btn svg{width:20px;height:20px;stroke:var(--blue)}
+  .theme .chev{width:12px;height:12px;transition:transform .3s}
+  .theme.open .chev{transform:rotate(180deg)}
+  .themes{position:absolute;top:48px;right:0;display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:18px;min-width:170px;
+          background:var(--bg2);border:1px solid var(--line);box-shadow:0 14px 40px -12px #000a;
+          opacity:0;pointer-events:none;transform:translateY(-8px) scale(.96);transform-origin:top right;transition:.25s}
+  .theme.open .themes{opacity:1;pointer-events:auto;transform:none}
+  .themes button{display:flex;align-items:center;gap:10px;border:1px solid transparent;border-radius:12px;padding:6px 10px 6px 6px;
+                 background:transparent;color:var(--text);font:600 14px Inter,sans-serif;cursor:pointer;text-align:left}
+  .themes button:hover{background:var(--card)}
+  .themes button.on{border-color:var(--blue)}
+  .sw{width:26px;height:26px;border-radius:50%;flex:none;border:2px solid #ffffff30}
+  .navr{display:flex;align-items:center;gap:8px}
 
-    img.logo {
-      width: 300px;
-      height: auto;
-      margin-bottom: 2vh;
-      opacity: 0.95;
-    }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--bodyf);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 
-    h1 {
-      font-size: 3.5em;
-      margin-bottom: 0.5em;
-      letter-spacing: 1px;
-    }
+  .mock{position:fixed;bottom:18px;left:18px;background:var(--orange);color:#1a0d00;font:700 11px Inter;letter-spacing:2px;
+        padding:6px 12px;border-radius:6px;z-index:99;box-shadow:0 4px 18px #0006}
 
-    p {
-      font-size: 1.6em;
-      opacity: 0.85;
-      margin-top: 0.5em;
-    }
-
-    .gif-travaux {
-      display: block;
-      margin: 4vh auto 0 auto; /**/
-      width: 800px;
-      height: auto;
-      opacity: 0.85;
-      animation: pulse 2.5s infinite;
-      filter: invert(1); /* ← réduit l’espace au-dessus */
-
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.85; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.85; }
-    }
-  </style>
+  nav{position:sticky;top:0;z-index:50;background:var(--nav);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:monospace;color:var(--muted);font-size:14px}
+  .brand img{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);transition:transform .5s}
+  .brand:hover img{transform:rotate(-20deg)}
+  .brand b{color:var(--blue)}
+  nav ul{display:flex;gap:24px;list-style:none;font-size:14px;color:var(--muted)}
+  nav ul a:hover{color:var(--text)}
+  .lang{position:relative}
+  .globe{display:flex;align-items:center;gap:6px;height:38px;padding:0 10px 0 8px;border-radius:20px;border:1px solid var(--line);
+         background:var(--bg2);color:var(--text);cursor:pointer;transition:.2s}
+  .globe:hover,.lang.open .globe{border-color:var(--blue)}
+  .globe svg{width:22px;height:22px;stroke:var(--blue)}
+  .globe .cur{width:20px;height:20px;border-radius:50%;object-fit:cover}
+  .globe .chev{width:12px;height:12px;transition:transform .3s}
+  .lang.open .chev{transform:rotate(180deg)}
+  .langs{position:absolute;top:48px;right:0;display:flex;flex-direction:column;gap:7px;padding:9px;border-radius:26px;max-height:calc(100vh - 90px);overflow-y:auto;scrollbar-width:none;
+         background:var(--bg2);border:1px solid var(--line);box-shadow:0 14px 40px -12px #000a;
+         opacity:0;pointer-events:none;transform:translateY(-8px) scale(.96);transform-origin:top right;transition:.25s}
+  .lang.open .langs{opacity:1;pointer-events:auto;transform:none}
+  .langs button{width:36px;height:36px;border-radius:50%;border:2px solid transparent;padding:0;cursor:pointer;overflow:hidden;
+                background:#0000;transition:transform .2s,border-color .2s;opacity:0;transform:translateY(-10px)}
+  .lang.open .langs button{opacity:1;transform:none;transition-delay:calc(var(--n) * 40ms)}
+  .langs button img{width:100%;height:100%;object-fit:cover;display:block}
+  .langs button:hover{transform:scale(1.15)!important}
+  /* ---- portail ---- */
+  :root{--portal:'Space Grotesk',Inter,sans-serif}
+  html[data-theme="grimoire"]{--portal:'Cinzel Decorative',serif}
+  html[data-theme="dusk"]{--portal:'Audiowide',sans-serif}
+  body{background-image:radial-gradient(900px 500px at 50% -5%, color-mix(in srgb,var(--blue) 22%,transparent), transparent 70%)}
+  .marque{font:700 18px var(--portal);color:var(--text);letter-spacing:1px}
+  .marque b{color:var(--blue)}
+  .hero{text-align:center;padding:90px 0 40px}
+  .curseur{display:inline-block;font:600 13px ui-monospace,monospace;letter-spacing:3px;color:var(--blue);
+           border:1px solid var(--line);background:var(--bg2);padding:7px 14px;border-radius:30px;margin-bottom:28px;text-transform:uppercase}
+  .curseur i{display:inline-block;width:8px;height:14px;background:var(--blue);margin-left:6px;vertical-align:-2px;animation:clig 1s steps(1) infinite}
+  @keyframes clig{50%{opacity:0}}
+  .titre{font:700 clamp(54px,12vw,140px)/1 var(--portal);letter-spacing:-2px;margin:0;
+         background:linear-gradient(180deg,var(--text) 30%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;
+         filter:drop-shadow(0 8px 40px color-mix(in srgb,var(--blue) 35%,transparent))}
+  html[data-theme="grimoire"] .titre{letter-spacing:2px}
+  .accroche{font:700 clamp(20px,3vw,30px)/1.35 var(--head);margin:26px auto 14px;max-width:780px}
+  .sous{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 34px}
+  .entrer{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:var(--btn-ink);font:800 16px Inter,sans-serif;
+          padding:14px 26px;border-radius:40px;box-shadow:0 10px 30px -8px var(--blue);transition:.2s}
+  .entrer:hover{transform:translateY(-3px)}
+  .chiffres{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:60px auto 0;max-width:900px}
+  .chiffres div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 22px;min-width:150px}
+  .chiffres b{display:block;font:700 26px var(--portal);color:var(--blue)}
+  .chiffres span{color:var(--muted);font-size:14px}
+  h2.portes{font:700 14px Inter;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-align:center;margin:30px 0 26px}
+  .grille{display:grid;grid-template-columns:2fr 1fr;gap:20px;padding-bottom:80px;align-items:stretch}
+  .porte-icone{font-size:54px;margin-top:22px;opacity:.8}
+  .p2{display:flex;flex-direction:column;justify-content:center;border-style:dashed}
+  .porte{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px}
+  .porte .etat{font:600 12px ui-monospace,monospace;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .porte .etat i{width:9px;height:9px;border-radius:50%;background:#555}
+  .p1{display:flex;flex-direction:column;gap:18px;background:var(--free-bg);transition:.25s}
+  .p1:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 20px 50px -20px var(--blue)}
+  .p1 .etat i{background:var(--green);box-shadow:0 0 10px var(--green);animation:pouls 2s infinite}
+  @keyframes pouls{50%{box-shadow:0 0 2px var(--green)}}
+  .p1 img{max-width:320px;width:70%}
+  .p1 p{color:var(--text);opacity:.85;font-size:17px;max-width:560px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tags span{font:600 13px Inter;border:1px solid var(--line);background:var(--bg2);border-radius:20px;padding:5px 12px;color:var(--muted)}
+  .p1 .go{margin-top:auto;align-self:flex-start}
+  .porte h3{font:700 22px var(--head);margin:14px 0 6px}
+  .porte .txt{color:var(--muted);font-size:15px}
+  .p2 .etat i{background:var(--orange)}
+  .barre{height:6px;border-radius:6px;background:var(--bg2);margin-top:16px;overflow:hidden}
+  .barre i{display:block;height:100%;width:40%;background:var(--orange);border-radius:6px;animation:charge 2.4s ease-in-out infinite}
+  @keyframes charge{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+  .p3{border-style:dashed}
+  .p3 .cadenas{font-size:40px;filter:grayscale(1);opacity:.6}
+  footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:14px;text-align:center}
+  footer a{color:var(--blue)}
+  @media(max-width:760px){.grille{grid-template-columns:1fr}.p1{grid-row:auto}}
+</style>
 </head>
 <body>
-  <img src="stanlab-icon.png" alt="StanLab Logo" class="logo">
-  <h1>Bienvenue dans le Bastion StanLab</h1>
-  <p>Ce domaine est actif. Le portail arrive bientôt.</p>
-  <img src="fiole02.gif" alt="Travaux en cours" class="gif-travaux">
+<nav><div class="wrap">
+  <a class="marque" href="#">stan<b>lab</b>.dev</a>
+  <div class="navr">
+  .dev-shot img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+  .dev-shot figcaption{padding:7px 9px;font-size:12px;color:var(--muted);line-height:1.35}
+  .dev-shot figcaption b{color:var(--orange);margin-right:4px}
+  .dev-bas{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:18px;color:var(--muted);font-size:14px}
+  .dev-yt{color:var(--text)}
+  .dev-fund{margin-top:14px;text-align:center;color:var(--muted);font-size:14px}
+  .dev-fund a{color:#ff9a2e;font-weight:700}
+  .visio{position:fixed;inset:0;z-index:200;background:#000d;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:zoom-out;padding:20px}
+  .visio.on{display:flex}
+  .visio img{max-width:96vw;max-height:84vh;border-radius:10px;box-shadow:0 20px 60px #000}
+  .visio p{color:#eee;font-size:15px}
+  @media (max-width:1000px){.dev-galerie{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:600px){.dev-galerie{grid-template-columns:repeat(2,1fr)}}
+
+  .cafe-carte{display:flex;gap:16px;align-items:flex-start;margin-top:16px;padding:16px 18px;border-radius:16px;
+              background:linear-gradient(135deg,#ff9a2e1f,#ff9a2e08);border:1px solid #ff9a2e66}
+  </div>
+</div></nav>
+
+<section class="hero"><div class="wrap">
+  <div class="curseur">&gt; stanlab<i></i></div>
+  <h1 class="titre">STANLAB</h1>
+  <p class="accroche" data-h="h"></p>
+  <p class="sous" data-i="sub"></p>
+  <a class="entrer" href="#portes"><span data-i="cta"></span> ↓</a>
+</div></section>
+
+<section class="wrap" id="portes">
+  <h2 class="portes" data-i="doors"></h2>
+  <div class="grille">
+    <a class="porte p1" href="https://tinyrpg.stanlab.dev/">
+      <div class="etat"><i></i><span data-i="g1"></span></div>
+      <img src="logo_texte.png" alt="TINY RPG">
+      <p data-i="d1"></p>
+      <div class="tags"><span>Fab</span><span>UE 5.4 → 5.8</span><span>Paquito 🎁</span><span>Tower defense</span></div>
+      <span class="entrer go"><span data-i="e1"></span> →</span>
+    </a>
+    <div class="porte p2">
+      <div class="etat"><i></i><span data-i="g2"></span></div>
+      <h3 data-i="n2"></h3><div class="txt" data-i="d2"></div>
+      <div class="porte-icone">🚪✨</div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Stanlab · <span data-i="made"></span> · <a href="mailto:contact@stanlab.dev">contact@stanlab.dev</a> · <a href="legal.html" data-i="legal1"></a> · <a href="legal.html#confidentialite" data-i="legal2"></a></div></footer>
+
+<script>
+const T={"en": {"kick": "Welcome to the Stanlab bastion", "h": "Ideas, brought to life.", "sub": "An independent workshop where every door opens onto a different world.", "cta": "Enter the bastion", "s1": "tools on Fab", "s2": "Unreal Engine", "s3": "languages", "s4": "game in the works", "doors": "The doors", "g1": "Gate 01 · online", "d1": "Plugins, shaders and characters ready to drop into your Unreal projects. Plus Paquito, the little gift that paints for you. And coming soon: Harmonious Chaos, our tower defense.", "e1": "Enter TINY RPG", "g2": "Coming soon", "n2": "A new door", "d2": "The next Stanlab project will open here. Come back and see!", "g3": "Gate 03 · classified", "n3": "Top secret", "d3": "Keep an eye on this one.", "made": "Made in France", "dusk": "Dusk", "legal1": "Legal notice", "legal2": "Privacy"}, "fr": {"kick": "Bienvenue dans le bastion Stanlab", "h": "Des idées qui prennent vie.", "sub": "Un atelier indépendant où chaque porte ouvre sur un univers différent.", "cta": "Entrer dans le bastion", "s1": "outils sur Fab", "s2": "Unreal Engine", "s3": "langues", "s4": "jeu en chantier", "doors": "Les portes", "g1": "Porte 01 · en ligne", "d1": "Des plugins, des shaders et des personnages prêts à glisser dans vos projets Unreal. Plus Paquito, le petit cadeau qui peint pour vous. Et bientôt : Harmonious Chaos, notre tower defense.", "e1": "Entrer chez TINY RPG", "g2": "Bientôt", "n2": "Une nouvelle porte", "d2": "Le prochain projet Stanlab ouvrira ici. Revenez nous voir !", "g3": "Porte 03 · classée secrète", "n3": "Top secret", "d3": "Gardez un œil sur celle-ci.", "made": "Fait en France", "dusk": "Crépuscule", "legal1": "Mentions légales", "legal2": "Confidentialité"}, "de": {"kick": "Willkommen in der Stanlab-Bastion", "h": "Ideen, die lebendig werden.", "sub": "Eine unabhängige Werkstatt, in der jedes Tor zu einer anderen Welt führt.", "cta": "Die Bastion betreten", "s1": "Tools auf Fab", "s2": "Unreal Engine", "s3": "Sprachen", "s4": "Spiel in Arbeit", "doors": "Die Tore", "g1": "Tor 01 · online", "d1": "Plugins, Shader und Charaktere, bereit für deine Unreal-Projekte. Dazu Paquito, das kleine Geschenk, das für dich malt. Und bald: Harmonious Chaos, unser Tower Defense.", "e1": "TINY RPG betreten", "g2": "Demnächst", "n2": "Ein neues Tor", "d2": "Das nächste Stanlab-Projekt öffnet hier. Schau wieder vorbei!", "g3": "Tor 03 · geheim", "n3": "Streng geheim", "d3": "Behalte dieses Tor im Auge.", "made": "Made in France", "dusk": "Dämmerung", "legal1": "Impressum", "legal2": "Datenschutz"}, "es": {"kick": "Bienvenido al bastión Stanlab", "h": "Ideas que cobran vida.", "sub": "Un taller independiente donde cada puerta se abre a un mundo distinto.", "cta": "Entrar al bastión", "s1": "herramientas en Fab", "s2": "Unreal Engine", "s3": "idiomas", "s4": "juego en desarrollo", "doors": "Las puertas", "g1": "Puerta 01 · en línea", "d1": "Plugins, shaders y personajes listos para tus proyectos de Unreal. Además Paquito, el pequeño regalo que pinta para ti. Y pronto: Harmonious Chaos, nuestro tower defense.", "e1": "Entrar en TINY RPG", "g2": "Próximamente", "n2": "Una nueva puerta", "d2": "El próximo proyecto de Stanlab abrirá aquí. ¡Vuelve pronto!", "g3": "Puerta 03 · clasificada", "n3": "Alto secreto", "d3": "No le quites el ojo a esta.", "made": "Hecho en Francia", "dusk": "Crepúsculo", "legal1": "Aviso legal", "legal2": "Privacidad"}, "pt": {"kick": "Bem-vindo ao bastião Stanlab", "h": "Ideias que ganham vida.", "sub": "Uma oficina independente onde cada porta se abre para um mundo diferente.", "cta": "Entrar no bastião", "s1": "ferramentas na Fab", "s2": "Unreal Engine", "s3": "idiomas", "s4": "jogo em produção", "doors": "As portas", "g1": "Portão 01 · online", "d1": "Plugins, shaders e personagens prontos para seus projetos Unreal. E o Paquito, o presentinho que pinta para você. Em breve: Harmonious Chaos, nosso tower defense.", "e1": "Entrar na TINY RPG", "g2": "Em breve", "n2": "Um novo portão", "d2": "O próximo projeto Stanlab vai abrir aqui. Volte para ver!", "g3": "Portão 03 · confidencial", "n3": "Ultrassecreto", "d3": "Fique de olho nesta.", "made": "Feito na França", "dusk": "Crepúsculo", "legal1": "Aviso legal", "legal2": "Privacidade"}, "it": {"kick": "Benvenuto nel bastione Stanlab", "h": "Idee che prendono vita.", "sub": "Un laboratorio indipendente dove ogni porta si apre su un mondo diverso.", "cta": "Entra nel bastione", "s1": "strumenti su Fab", "s2": "Unreal Engine", "s3": "lingue", "s4": "gioco in lavorazione", "doors": "Le porte", "g1": "Porta 01 · online", "d1": "Plugin, shader e personaggi pronti per i tuoi progetti Unreal. In più Paquito, il piccolo regalo che dipinge per te. E presto: Harmonious Chaos, il nostro tower defense.", "e1": "Entra in TINY RPG", "g2": "Prossimamente", "n2": "Una nuova porta", "d2": "Il prossimo progetto Stanlab aprirà qui. Torna a trovarci!", "g3": "Porta 03 · riservata", "n3": "Top secret", "d3": "Tieni d'occhio questa.", "made": "Fatto in Francia", "dusk": "Crepuscolo", "legal1": "Note legali", "legal2": "Privacy"}, "pl": {"kick": "Witaj w bastionie Stanlab", "h": "Pomysły, które ożywają.", "sub": "Niezależny warsztat, w którym każda brama prowadzi do innego świata.", "cta": "Wejdź do bastionu", "s1": "narzędzia na Fab", "s2": "Unreal Engine", "s3": "języków", "s4": "gra w budowie", "doors": "Bramy", "g1": "Brama 01 · online", "d1": "Pluginy, shadery i postacie gotowe do twoich projektów w Unreal. Do tego Paquito, mały prezent, który maluje dla ciebie. Wkrótce: Harmonious Chaos, nasz tower defense.", "e1": "Wejdź do TINY RPG", "g2": "Wkrótce", "n2": "Nowa brama", "d2": "Tutaj otworzy się kolejny projekt Stanlab. Wpadnij ponownie!", "g3": "Brama 03 · tajne", "n3": "Ściśle tajne", "d3": "Miej ją na oku.", "made": "Zrobione we Francji", "dusk": "Zmierzch", "legal1": "Nota prawna", "legal2": "Prywatność"}, "tr": {"kick": "Stanlab kalesine hoş geldin", "h": "Hayat bulan fikirler.", "sub": "Her kapının farklı bir dünyaya açıldığı bağımsız bir atölye.", "cta": "Kaleye gir", "s1": "Fab'de araç", "s2": "Unreal Engine", "s3": "dil", "s4": "yapım aşamasında oyun", "doors": "Kapılar", "g1": "Kapı 01 · çevrimiçi", "d1": "Unreal projelerine hazır eklentiler, shader'lar ve karakterler. Üstelik senin için resim yapan küçük hediye Paquito. Yakında: tower defense oyunumuz Harmonious Chaos.", "e1": "TINY RPG'ye gir", "g2": "Yakında", "n2": "Yeni bir kapı", "d2": "Sıradaki Stanlab projesi burada açılacak. Tekrar uğra!", "g3": "Kapı 03 · gizli", "n3": "Çok gizli", "d3": "Bu kapıyı gözden kaçırma.", "made": "Fransa'da yapıldı", "dusk": "Alacakaranlık", "legal1": "Yasal uyarı", "legal2": "Gizlilik"}, "ru": {"kick": "Добро пожаловать в бастион Stanlab", "h": "Идеи, которые оживают.", "sub": "Независимая мастерская, где каждая дверь ведёт в другой мир.", "cta": "Войти в бастион", "s1": "инструмента на Fab", "s2": "Unreal Engine", "s3": "языков", "s4": "игра в разработке", "doors": "Врата", "g1": "Врата 01 · онлайн", "d1": "Плагины, шейдеры и персонажи, готовые для ваших проектов на Unreal. И Пакито, маленький подарок, который рисует для вас. Скоро: Harmonious Chaos, наш tower defense.", "e1": "Войти в TINY RPG", "g2": "Скоро", "n2": "Новые врата", "d2": "Здесь откроется следующий проект Stanlab. Заглядывайте!", "g3": "Врата 03 · засекречено", "n3": "Совершенно секретно", "d3": "Следите за ними.", "made": "Сделано во Франции", "dusk": "Сумерки", "legal1": "Правовая информация", "legal2": "Конфиденциальность"}, "ja": {"kick": "Stanlab の砦へようこそ", "h": "アイデアに命を。", "sub": "扉を開けるたびに違う世界が広がる、インディーの工房。", "cta": "砦に入る", "s1": "Fab のツール", "s2": "Unreal Engine", "s3": "言語", "s4": "開発中のゲーム", "doors": "扉", "g1": "扉 01 · オンライン", "d1": "Unreal プロジェクトにすぐ使えるプラグイン、シェーダー、キャラクター。あなたのために絵を描く小さなプレゼント、パキートも。近日公開：タワーディフェンス『Harmonious Chaos』。", "e1": "TINY RPG に入る", "g2": "近日公開", "n2": "新しい扉", "d2": "次の Stanlab プロジェクトはここで始まります。また来てね！", "g3": "扉 03 · 機密", "n3": "極秘", "d3": "この扉から目を離さないで。", "made": "フランス製", "dusk": "黄昏", "legal1": "法的情報", "legal2": "プライバシー"}, "ko": {"kick": "Stanlab 요새에 오신 것을 환영합니다", "h": "살아 움직이는 아이디어.", "sub": "문마다 다른 세계로 이어지는 독립 공방.", "cta": "요새로 들어가기", "s1": "Fab 도구", "s2": "Unreal Engine", "s3": "개 언어", "s4": "개발 중인 게임", "doors": "문", "g1": "문 01 · 온라인", "d1": "Unreal 프로젝트에 바로 쓰는 플러그인, 셰이더, 캐릭터. 당신을 위해 그림을 그리는 작은 선물 파키토까지. 곧 공개: 타워 디펜스 Harmonious Chaos.", "e1": "TINY RPG 입장", "g2": "곧 공개", "n2": "새로운 문", "d2": "다음 Stanlab 프로젝트가 여기서 열립니다. 다시 들러 주세요!", "g3": "문 03 · 기밀", "n3": "일급 비밀", "d3": "이 문을 주목하세요.", "made": "프랑스 제작", "dusk": "황혼", "legal1": "법적 고지", "legal2": "개인정보"}, "zh": {"kick": "欢迎来到 Stanlab 堡垒", "h": "让想法活起来。", "sub": "一间独立工作坊，每扇门都通往不同的世界。", "cta": "进入堡垒", "s1": "Fab 上的工具", "s2": "Unreal Engine", "s3": "种语言", "s4": "开发中的游戏", "doors": "大门", "g1": "01 号门 · 在线", "d1": "可直接用于 Unreal 项目的插件、着色器和角色。还有 Paquito，为你作画的小礼物。即将推出：我们的塔防游戏 Harmonious Chaos。", "e1": "进入 TINY RPG", "g2": "即将推出", "n2": "一扇新门", "d2": "下一个 Stanlab 项目将在这里开启。欢迎再来！", "g3": "03 号门 · 机密", "n3": "绝密", "d3": "请留意这扇门。", "made": "法国制造", "dusk": "黄昏", "legal1": "法律声明", "legal2": "隐私"}};
+const F=[["fr","fr"],["en","gb"],["de","de"],["es","es"],["pt","br"],["it","it"],["pl","pl"],["tr","tr"],["ru","ru"],["ja","jp"],["ko","kr"],["zh","cn"]];
+const L=document.getElementById('langs');
+function setLang(k){
+  document.documentElement.lang=k;
+  document.querySelectorAll('[data-i]').forEach(e=>{e.textContent=T[k][e.dataset.i]||T.en[e.dataset.i]});
+  document.querySelectorAll('[data-h]').forEach(e=>{e.innerHTML=T[k][e.dataset.h]});
+  L.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.l===k));
+  document.getElementById('cur').src=`https://flagcdn.com/w80/${F.find(x=>x[0]===k)[1]}.png`;
+  try{localStorage.setItem('tinyrpg-lang',k)}catch(e){}
+}
+const LB=document.getElementById('lang'),GB=document.getElementById('globe');
+function toggle(o){LB.classList.toggle('open',o);GB.setAttribute('aria-expanded',LB.classList.contains('open'))}
+GB.onclick=e=>{e.stopPropagation();toggle()};
+document.addEventListener('click',e=>{if(!LB.contains(e.target))toggle(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){toggle(false);ttoggle(false)}});
+F.forEach(([k,f],i)=>{const b=document.createElement('button');b.dataset.l=k;b.title=k.toUpperCase();b.style.setProperty('--n',i);
+  b.innerHTML=`<img src="https://flagcdn.com/w80/${f}.png" alt="${k}">`;b.onclick=()=>{setLang(k);toggle(false)};L.appendChild(b)});
+const TH=[['arcade','Arcade','linear-gradient(135deg,#07080d 50%,#00aaff 50%)'],['grimoire','Grimoire','linear-gradient(135deg,#120d0a 50%,#e0b05a 50%)'],['dusk','','linear-gradient(135deg,#2a2d44 50%,#8fb8ff 50%)']];
+const TB=document.getElementById('theme'),TBB=document.getElementById('themebtn'),TL=document.getElementById('themes');
+function setTheme(k){document.documentElement.dataset.theme=k;document.getElementById('cursw').style.background=TH.find(x=>x[0]===k)[2];
+  TL.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.t===k));try{localStorage.setItem('tinyrpg-theme',k)}catch(e){}}
+function ttoggle(o){TB.classList.toggle('open',o);TBB.setAttribute('aria-expanded',TB.classList.contains('open'))}
+TH.forEach(([k,n,sw])=>{const b=document.createElement('button');b.dataset.t=k;b.innerHTML=`<span class="sw" style="background:${sw}"></span><span ${n?'':'data-i="dusk"'}>${n}</span>`;
+  b.onclick=()=>{setTheme(k);ttoggle(false)};TL.appendChild(b)});
+TBB.onclick=e=>{e.stopPropagation();toggle(false);ttoggle()};
+GB.addEventListener('click',()=>ttoggle(false));
+document.addEventListener('click',e=>{if(!TB.contains(e.target))ttoggle(false)});
+let th='arcade';try{th=localStorage.getItem('tinyrpg-theme')||'arcade'}catch(e){}setTheme(TH.some(x=>x[0]===th)?th:'arcade');
+let start='en';try{start=localStorage.getItem('tinyrpg-lang')||(navigator.language||'en').slice(0,2)}catch(e){}
+start=new URLSearchParams(location.search).get('l')||start;
+setLang(T[start]?start:'en');
+</script>
+<script>
+// La langue suit dans les liens vers nos propres pages (?l=xx), même ouvertes en fichiers locaux.
+(function(){function lien(e){const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');
+  if(!/^(\.\.\/)?(aide\/|vitrine_tinyrpg|portail_stanlab|https:\/\/tinyrpg)/.test(h))return;const [b,ha]=h.split('#');
+  a.setAttribute('href',b.split('?')[0]+'?l='+document.documentElement.lang+(ha?'#'+ha:''))}
+  document.addEventListener('click',lien,true);document.addEventListener('auxclick',lien,true)})();
+</script>
 </body>
 </html>
