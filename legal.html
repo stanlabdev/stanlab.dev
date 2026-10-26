@@ -77,6 +77,9 @@
                 background:#0000;transition:transform .2s,border-color .2s;opacity:0;transform:translateY(-10px)}
   .lang.open .langs button{opacity:1;transform:none;transition-delay:calc(var(--n) * 40ms)}
   .langs button img{width:100%;height:100%;object-fit:cover;display:block}
+  /* patch_mobile_nav : barre compacte sur téléphone */
+  html,body{overflow-x:clip}
+  @media (max-width:480px){nav .wrap{gap:8px;padding-left:12px;padding-right:12px}.brand{font-size:11px;gap:6px;white-space:nowrap}.brand img{width:26px;height:26px}.navr{gap:6px}.globe{padding:0 7px 0 6px}}
   .langs button:hover{transform:scale(1.15)!important}
   .doc{max-width:820px;margin:0 auto;padding:30px 24px 80px}
   .doc h1{font-family:var(--head);font-size:clamp(26px,4vw,38px);margin:34px 0 8px}
